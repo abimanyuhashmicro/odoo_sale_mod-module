@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- sale.order inherit form view -->
+    <record id="sale_modded_view_id" model="ir.ui.view">
+        <field name="name">Sales Modded Form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Add your xpath here -->
+            <xpath expr="//button[@name='action_draft']" position="before">
+                <button name="createMoAuto" type="object" string="Create MO"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- sale.order action window -->
+    <record id="sale_modded_action" model="ir.actions.act_window">
+        <field name="name">Sales Modded</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="sale_inherited_menu_act" name="Sales Modded" parent="sale_inherited_menu_root" action="sale_modded_action" sequence="10"/>
+
+</odoo>

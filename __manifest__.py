@@ -28,9 +28,15 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/menu.xml',
+        'views/sale_inherited_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
+    ],
+
+    'depends': [
+        'sale',
     ],
 }

@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <!-- Add your xpath here -->
             <xpath expr="//button[@name='action_draft']" position="before">
-                <button name="createMoAuto" type="object" string="Create MO"/>
+                <button name="createMoAuto" type="object" string="Create MO" attrs="{'invisible':[('state','not in',['sale'])]}"/>
             </xpath>
         </field>
     </record>

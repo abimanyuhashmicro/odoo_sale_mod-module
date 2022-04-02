@@ -20,4 +20,8 @@ class SaleInherited(models.Model):
         tar_bom_id = target[0][0]["bom_id"]
         tar_hrg_bom = target[0][0]["hrg_bom"]
         tar_product_uom_id = target[0][0]["product_uom_id"]
-        self.env['mrp.production'].create({'product_id': tar_product_id, 'product_uom_id': tar_product_uom_id, 'bom_id': tar_bom_id, 'product_qty': tar_product_qty})
+        if tar_hrg_bom > 0:
+            self.env['mrp.production'].create({'product_id': tar_product_id, 'product_uom_id': tar_product_uom_id, 'bom_id': tar_bom_id, 'product_qty': tar_product_qty})
+        else:
+            pass
+

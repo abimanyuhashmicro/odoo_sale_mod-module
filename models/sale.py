@@ -5,12 +5,14 @@ class SaleInherited(models.Model):
     _inherit = 'sale.order'
 
     def createMoAuto(self):
-        bom_data = self.env['mrp.bom'].search([('id', '=', self.order_line.product_id.bom_ids.id)]).read()
-        if bom_data[0]['hrg_bom'] > 0:
-            self.env['mrp.production'].create({
-                'product_id': self.order_line.product_id.id, 
-                'product_uom_id': self.order_line.product_id.bom_ids.product_uom_id.id, 
-                'bom_id': self.order_line.product_id.bom_ids.id, 
-                'product_qty': self.order_line.product_uom_qty})
+        for record in self.order_line:
+            for singlebom in record.product_id.bom_ids:
+                bom_data = record.env['mrp.bom'].search([('id', '=', singlebom.id)]).read()
+                if bool(bom_data) == True:
+                    record.env['mrp.production'].create({
+                        'product_id': record.product_id.id, 
+                        'product_uom_id': record.product_id.bom_ids.product_uom_id.id, 
+                        'bom_id': singlebom.id, 
+                        'product_qty': record.product_uom_qty})
 
 

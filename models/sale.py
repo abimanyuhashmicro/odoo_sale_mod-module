@@ -14,7 +14,7 @@ class SaleInherited(models.Model):
                         'product_id': record.product_id.id, 
                         'product_uom_id': record.product_id.bom_ids.product_uom_id.id, 
                         'bom_id': singlebom.id, 
-                        'product_qty': record.product_uom_qty,})
+                        'product_qty': record.product_uom_qty})
                     for bomsing in singlebom.bom_line_ids:
                         vals = {
                             'company_id': bomsing.company_id.id,
@@ -32,6 +32,6 @@ class SaleInherited(models.Model):
                         stock_move = self.env['stock.move'].search([],limit=1, order='id desc')
                         stock_move_ids.append(stock_move.id)
                     target_mrp_prod = self.env['mrp.production'].search([],limit=1, order='id desc') # ambil record terbaru yang dibuat
-                    self.env['mrp.production'].search([('id', '=', target_mrp_prod.id)]).write({'move_raw_ids': stock_move_id,}) # update move_raw_ids
+                    self.env['mrp.production'].search([('id', '=', target_mrp_prod.id)]).write({'move_raw_ids': stock_move_ids,}) # update move_raw_ids
 
 
